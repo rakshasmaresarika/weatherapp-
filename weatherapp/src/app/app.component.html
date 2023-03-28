@@ -1,0 +1,75 @@
+<!-- <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchValue">
+ <button [disabled]="city_name" (click)="weatherDetails()">WeatherForcast</button>  -->
+ <div class="input-group">
+  <div class="form-outline d-flex">
+    <input type="search" id="form1" placeholder="Search" class="form-control" [(ngModel)]="searchValue" />
+    <button type="button" class="btn btn-primary btn-sm" (click)="weatherDetails()" >
+      <i  class="bi bi-search"></i>
+    </button>
+    <label class="form-label" for="form1"></label>
+  </div>
+  
+</div>
+
+<div class="container mt-3" *ngIf="weather_details">
+  <div class="upper-data">
+    <img src="../assets/imp1.jpg" *ngIf="temperature > 15">
+    <img src="../assets/night-sky-moon-.jpg" *ngIf="temperature <= 15">
+
+    <!-- <div *ngIf="weather_details"> -->
+      <div class="weather-data">
+        <div class="location">{{searchValue | titlecase}}</div>
+        <div class="temperature">{{ temperature | number: '1.0-0'}}°C</div>
+      </div>
+  </div>
+    <!-- </div> -->
+
+    <div class="lower-data">
+      <div class="more-info-label mt-2">More Information</div>
+      <div class="more-info-container">
+        <div class="info-block mt-2">
+          <div class="info-block-label">
+            <img src="../assets/cold-temp.png">
+            <span>min</span>
+          </div>
+          <div class="info-block-value">
+            {{min_temp | number: '1.0-0'}}°C
+          </div>
+        </div>
+
+        <div class="info-block mt-2">
+          <div class="info-block-label">
+            <img src="../assets/hot-temp.png">
+            <span>max</span>
+          </div>
+          <div class="info-block-value">
+            {{max_temp | number: '1.0-0'}}°C
+          </div>
+        </div>
+        <div class="info-block mt-2">
+          <div class="info-block-label">
+            <img src="../assets/humidity.png">
+            <span>Humid</span>
+          </div>
+          <div class="info-block-value">
+            {{humidity}}%
+          </div>
+        </div>
+        <div class="info-block mt-2 ">
+          <div class="info-block-label">
+            <img src="../assets/wind.png">
+            <span>Wind</span>
+          </div>
+          <div class="info-block-value">
+            {{windSpeed}}m/s
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+  <router-outlet></router-outlet>
+
+
+  <!-- <button mat-raised-button (click)="openDialog('0ms', '0ms')">Open dialog without animation</button> -->
