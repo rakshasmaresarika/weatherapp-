@@ -14,10 +14,11 @@ export class AppComponent {
   max_temp: any;
   humidity:any;
   city_name: any;
-  windSpeed: any;
-  city:string = this.weatherService.cityName;
+  windspeed: any;
+  city!:string;
   cityName:any
   weather_details: any;
+  notFound = false;
 
 
   _searchValue='mumbai';
@@ -35,29 +36,31 @@ export class AppComponent {
   
 
   ngOnInit(){
-    this.weatherService.getWeatherData(this.city).subscribe((data: any)=>{
-      console.log(data);
-      this.Response=data;
-      this.temperature=this.Response.main.temp;
-      this.max_temp=this.Response.main.temp_max;
-      this.min_temp=this.Response.main.temp_min;
-      this.humidity=this.Response.main.humidity;
-      this.windSpeed=this.Response.main.wind;
-      
-      console.log(this.Response.main.temp_max);
-      
-      },
+    this.city = 'mumbai';
+    // this.weatherService.getWeatherData(this.city).subscribe((data: any)=>{
+    //   console.log(data);
+    //   this.Response=data;
+    //   this.temperature=this.Response.main.temp;
+    //   this.max_temp=this.Response.main.temp_max;
+    //   this.min_temp=this.Response.main.temp_min;
+    //   this.humidity=this.Response.main.humidity;
+    //   this.windspeed=this.Response.wind.speed;
+    //   console.log(this.windspeed);
+    //   console.log(this.Response.main.temp_max);
+    //   },
+    //    (error: any)=>{
+    //      console.log(" this data not found");
+    //    }
+    // )
 
-       (error: any)=>{
-         console.log(" this data not found");
-        
-       }
-        
-      )
+    this.weatherDetails()
   }
+
   async weatherDetails(){
+    this.Response = "";
   console.log(this.searchValue);
   this.weatherService.getWeatherData(this.searchValue).subscribe((data: any)=>{
+    this.notFound = false;
     this.weather_details = data;
     console.log(this.weather_details);
     this.Response = this.weather_details;
@@ -65,11 +68,17 @@ export class AppComponent {
       this.max_temp=this.Response.main.temp_max;
       this.min_temp=this.Response.main.temp_min;
       this.humidity=this.Response.main.humidity;
-      this.windSpeed=this.Response.main.wind;
+      this.windspeed=this.Response.wind.speed;
 
   }, (error)=>{
+    this.Response = "";
+    this.temperature="";
+      this.max_temp="";
+      this.min_temp="";
+      this.humidity="";
+      this.windspeed="";
     console.log("error handled");
-    
+    this.notFound = true;
   })
   
   }

@@ -2,7 +2,7 @@
  <button [disabled]="city_name" (click)="weatherDetails()">WeatherForcast</button>  -->
  <div class="input-group">
   <div class="form-outline d-flex">
-    <input type="search" id="form1" placeholder="Search" class="form-control" [(ngModel)]="searchValue" />
+    <input type="search" id="form1" placeholder="Search city " class="form-control" [(ngModel)]="searchValue" />
     <button type="button" class="btn btn-primary btn-sm" (click)="weatherDetails()" >
       <i  class="bi bi-search"></i>
     </button>
@@ -15,11 +15,13 @@
   <div class="upper-data">
     <img src="../assets/imp1.jpg" *ngIf="temperature > 15">
     <img src="../assets/night-sky-moon-.jpg" *ngIf="temperature <= 15">
+    <img src="../assets/not-found.jpg" *ngIf="notFound">
 
     <!-- <div *ngIf="weather_details"> -->
       <div class="weather-data">
-        <div class="location">{{searchValue | titlecase}}</div>
-        <div class="temperature">{{ temperature | number: '1.0-0'}}°C</div>
+        <div class="location fs-4">{{searchValue | titlecase}}</div>
+        <div *ngIf="notFound" class="text-danger fs-2">Not Found</div>
+        <div *ngIf="!notFound" class="temperature">{{ temperature | number: '1.0-0'}}°C</div>
       </div>
   </div>
     <!-- </div> -->
@@ -61,7 +63,7 @@
             <span>Wind</span>
           </div>
           <div class="info-block-value">
-            {{windSpeed}}m/s
+            {{windspeed}}m/s
           </div>
         </div>
       </div>
@@ -69,7 +71,7 @@
 </div>
 
 
-  <router-outlet></router-outlet>
+  <!-- <router-outlet></router-outlet> -->
 
 
   <!-- <button mat-raised-button (click)="openDialog('0ms', '0ms')">Open dialog without animation</button> -->
